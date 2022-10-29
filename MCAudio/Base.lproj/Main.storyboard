@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VcF-Uq-zdb">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MCAudio" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9uf-G4-M1o">
+                                <rect key="frame" x="148.5" y="433" width="117" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="2gz-cn-bxm"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Connect Devices"/>
+                                <connections>
+                                    <action selector="connectButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T8G-1n-pV2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hMc-iP-bf3">
+                                <rect key="frame" x="142" y="513" width="130" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="awQ-GB-Xw9"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Start Audio Stream"/>
+                                <connections>
+                                    <action selector="streamButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sx9-Dg-I2i"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1s0-JF-VAv">
+                                <rect key="frame" x="142.5" y="594" width="129" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="GaN-Pp-b22"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Stop Audio Stream"/>
+                                <connections>
+                                    <action selector="stopStreamButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Q9g-I0-9pT"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="tintColor"/>
+                        <constraints>
+                            <constraint firstItem="9uf-G4-M1o" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3hl-Un-WSO"/>
+                            <constraint firstItem="hMc-iP-bf3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aI9-AQ-Eif"/>
+                            <constraint firstItem="hMc-iP-bf3" firstAttribute="top" secondItem="9uf-G4-M1o" secondAttribute="bottom" constant="50" id="kYu-Qz-3y5"/>
+                            <constraint firstItem="9uf-G4-M1o" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ldq-EM-0pR"/>
+                            <constraint firstItem="1s0-JF-VAv" firstAttribute="top" secondItem="hMc-iP-bf3" secondAttribute="bottom" constant="50" id="tKM-md-9nC"/>
+                            <constraint firstItem="1s0-JF-VAv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="y6J-qG-Gl0"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="IBm-Rd-miy"/>
+                    <connections>
+                        <outlet property="connectButton" destination="9uf-G4-M1o" id="gim-x3-Xgb"/>
+                        <outlet property="stopStreamButton" destination="1s0-JF-VAv" id="SEp-pU-Xyo"/>
+                        <outlet property="streamButton" destination="hMc-iP-bf3" id="SdJ-am-LVC"/>
+                        <segue destination="NiE-4P-RZP" kind="presentation" identifier="MicSegue" modalPresentationStyle="fullScreen" id="HOA-zZ-tso"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="928.98550724637687" y="26.785714285714285"/>
+        </scene>
+        <!--Mic View Controller-->
+        <scene sceneID="vl8-sA-RSi">
+            <objects>
+                <viewController id="NiE-4P-RZP" customClass="MicViewController" customModule="MCAudio" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HZy-6J-7Zk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SVW-b6-wDo">
+                                <rect key="frame" x="154" y="432.5" width="106" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="HL5-G7-1iH"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Stop Streaming">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="stopStreamingButtonTapped:" destination="NiE-4P-RZP" eventType="touchUpInside" id="YnT-1P-m7g"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="yEG-uy-PWz"/>
+                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                        <constraints>
+                            <constraint firstItem="SVW-b6-wDo" firstAttribute="centerX" secondItem="HZy-6J-7Zk" secondAttribute="centerX" id="XtW-A0-Mw2"/>
+                            <constraint firstItem="SVW-b6-wDo" firstAttribute="centerY" secondItem="HZy-6J-7Zk" secondAttribute="centerY" id="gHK-8q-531"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="xx8-86-uie"/>
+                    <connections>
+                        <outlet property="stopStreamingButton" destination="SVW-b6-wDo" id="SZA-gc-VJF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Azt-ZA-3uE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1828.985507246377" y="26.785714285714285"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="tta-vB-Yvg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VcF-Uq-zdb" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NZw-K8-na5">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="yMb-u5-uzh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jS8-ng-5Ww" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="18.840579710144929" y="26.785714285714285"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
