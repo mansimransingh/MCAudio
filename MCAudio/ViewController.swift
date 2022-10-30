@@ -15,7 +15,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var connectButton: UIButton!
     @IBOutlet weak var streamButton: UIButton!
     @IBOutlet weak var stopStreamButton: UIButton!
-    
+
+  private var asbd: AudioStreamBasicDescription?
+
     var peerID: MCPeerID!
     var mcSession: MCSession!
     var mcAdvertiserAssistant: MCAdvertiserAssistant!
@@ -53,22 +55,26 @@ class ViewController: UIViewController {
     private var buffer =  UnsafeMutablePointer<TPCircularBuffer>.allocate(capacity: 1)
     
     private func writeStream() {
-        let ptr = TPCircularBufferTail(buffer, availableWriteBytesPtr)
-            
-            // ensure we have non 0 bytes to write - which should always be true, but you may want to refactor things
-            guard availableWriteBytesPtr.pointee > 0 else { return }
-            
-            let audioBuffer =  AudioBuffer(mNumberChannels: 1,
-                                           mDataByteSize: UInt32(availableWriteBytesPtr.pointee),
-                                           mData: ptr)
-            let audioBufferList = AudioBufferList(mNumberBuffers: 1, mBuffers: audioBuffer)
-            let audioBufferListPointer = UnsafeMutablePointer<AudioBufferList>.allocate(capacity: 1)
-            audioBufferListPointer.pointee = audioBufferList
-            
-            self.ezRecorder?.appendData(from: audioBufferListPointer,
-                                        withBufferSize: UInt32(availableWriteBytesPtr.pointee))
-            
-            TPCircularBufferConsume(buffer, availableWriteBytesPtr.pointee)
+      let ptr = TPCircularBufferTail(buffer, availableWriteBytesPtr)
+
+      // ensure we have non 0 bytes to write - which should always be true, but you may want to refactor things
+      guard availableWriteBytesPtr.pointee > 0 else { return }
+
+      // calc number of frames we have to write
+      // bytes received isn't always full frames - these must be full integers, remainders get written on next call to writeStream
+      let framesToWrite = UInt32(availableWriteBytesPtr.pointee) / self.asbd!.mBytesPerFrame
+      let audioBuffer =  AudioBuffer(mNumberChannels: 1,
+                                     mDataByteSize: framesToWrite * self.asbd!.mBytesPerFrame, // only full frame bytes
+                                     mData: ptr)
+      var audioBufferList = AudioBufferList(mNumberBuffers: 1, mBuffers: audioBuffer)
+
+      // this was the major issue.
+      // ezrecorder wants buffer size in frames NOT bytes, which is annoying
+      self.ezRecorder?.appendData(from: &audioBufferList,
+                                  withBufferSize: framesToWrite)
+
+      // notify the buffer how many bytes we consumed
+      TPCircularBufferConsume(buffer, Int32(framesToWrite * self.asbd!.mBytesPerFrame))
     }
     
     deinit {
@@ -342,7 +348,7 @@ extension ViewController: StreamDelegate {
     
     func recordAudio(withASBD asbd: AudioStreamBasicDescription) {
         // stores audio to temporary folder
-
+        self.asbd = asbd
         let audioOutputPath = NSTemporaryDirectory() + "audioOutput.aiff"
         let audioOutputURL = URL(fileURLWithPath: audioOutputPath)
 //        let audioStreamBasicDescription = AudioStreamBasicDescription(mSampleRate: 44100.0, mFormatID: kAudioFormatLinearPCM, mFormatFlags: kAudioFormatFlagIsSignedInteger | kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsPacked, mBytesPerPacket: 4, mFramesPerPacket: 1, mBytesPerFrame: 4, mChannelsPerFrame: 1, mBitsPerChannel: 32, mReserved: 1081729024)
