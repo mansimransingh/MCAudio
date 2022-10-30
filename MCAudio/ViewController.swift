@@ -11,6 +11,7 @@ import MultipeerConnectivity
 import DisPlayers_Audio_Visualizers
 
 class ViewController: UIViewController {
+    private let serviceName = "audio-recorder"
     @IBOutlet weak var connectButton: UIButton!
     @IBOutlet weak var streamButton: UIButton!
     @IBOutlet weak var stopStreamButton: UIButton!
@@ -142,7 +143,7 @@ extension ViewController {
     func browseForPeers() {
         self.stopAdvertisingToPeers()
         
-        self.mcBrowserViewController = MCBrowserViewController(serviceType: "bonjour", session: self.mcSession)
+        self.mcBrowserViewController = MCBrowserViewController(serviceType: serviceName, session: self.mcSession)
         self.mcBrowserViewController.delegate = self
         self.present(self.mcBrowserViewController, animated: true) {
             print("MC Browser presented")
@@ -151,7 +152,7 @@ extension ViewController {
     
     func advertiseToPeers() {
         if self.mcAdvertiserAssistant == nil {
-            self.mcAdvertiserAssistant = MCAdvertiserAssistant(serviceType: "bonjour", discoveryInfo: nil, session: self.mcSession)
+            self.mcAdvertiserAssistant = MCAdvertiserAssistant(serviceType: serviceName, discoveryInfo: nil, session: self.mcSession)
         }
         self.mcAdvertiserAssistant.start()
         print("Started advertising")
