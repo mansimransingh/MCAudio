@@ -213,21 +213,18 @@ extension MicViewController: EZMicrophoneDelegate {
     func microphone(_ microphone: EZMicrophone!, hasBufferList bufferList: UnsafeMutablePointer<AudioBufferList>!, withBufferSize bufferSize: UInt32, withNumberOfChannels numberOfChannels: UInt32) {
         /// Send microphone audio through the output stream
         // get the audio buffer list from the pointer
-        let audioBufferList = bufferList.pointee
-        // gets the audio buffer from the audio buffer list
-        // which is only one because there is one channel
-        let audioBuffer = audioBufferList.mBuffers
+      let bufferPtr = UnsafeMutableAudioBufferListPointer(bufferList)!
 
         // get the pointer to a buffer of audio data using .mData which is an UnsafeMutableRawPointer?
         // then change it to UInt8 so it can be put on the output stream
-        guard let data = audioBuffer.mData?.assumingMemoryBound(to: UInt8.self) else { return }
+      guard let data = bufferPtr[0].mData?.assumingMemoryBound(to: UInt8.self) else { return }
         if self.outputStream == nil {
             self.setupStreaming()
         }
         // if the output stream has space available
         if self.outputStream.hasSpaceAvailable {
             // write out the UnsafeMutablePointer<UInt8> data to the outputstream
-            self.outputStream.write(data, maxLength: Int(audioBuffer.mDataByteSize))
+            self.outputStream.write(data, maxLength: Int(bufferPtr[0].mDataByteSize))
         }
     }
 }
