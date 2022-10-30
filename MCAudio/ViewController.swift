@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+      EZAudioUtilities.circularBuffer(buffer, withSize: Int32(ViewController.BufferSize))
     }
     
     override func viewDidAppear(_ animated: Bool) {
