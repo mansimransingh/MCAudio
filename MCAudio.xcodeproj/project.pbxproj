@@ -619,6 +619,8 @@
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MCAudio/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Discover things";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "microphone ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -652,6 +654,8 @@
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MCAudio/Info.plist;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Discover things";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "microphone ";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
