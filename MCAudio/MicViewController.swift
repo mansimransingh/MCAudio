@@ -29,6 +29,7 @@ class MicViewController: UIViewController {
         
         sendMicrophoneAudioDescription()
         setupStreaming()
+        captureAudio()
         
     }
     
@@ -37,7 +38,7 @@ class MicViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        captureAudio()
+        setupMic()
         self.mcSession.delegate = self
     }
     
@@ -106,12 +107,16 @@ extension MicViewController: MCSessionDelegate {
 }
 
 extension MicViewController {
-    
+
+  func setupMic() {
+    // starts capturing audio from the mic
+    if self.ezMicrophone == nil {
+      self.ezMicrophone = EZMicrophone(delegate: self)
+    }
+  }
+
     func captureAudio() {
-        // starts capturing audio from the mic
-        if self.ezMicrophone == nil {
-            self.ezMicrophone = EZMicrophone.init(microphoneDelegate: self)
-        }
+      assert(self.ezMicrophone != nil)
         self.ezMicrophone?.startFetchingAudio()
     }
     
